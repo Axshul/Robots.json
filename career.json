@@ -1,36 +1,36 @@
 {
-    "name": "<YourName>",
-    "dateOfBirth": "<YYYY-MM-DD>",
+    "name": "Anshul Namdev",
+    "dateOfBirth": "2006-06-29",
     "education": [
         {
-            "school": "<HighSchoolName>",
-            "location": "<City, State>",
-            "degree": "High School Diploma",
-            "startDate": "<YYYY-MM-DD>",
-            "endDate": "<YYYY-MM-DD>"
+            "school": "Dynamic Higher Secondary School",
+            "location": "Bhopal, M.P, India",
+            "degree": "High School",
+            "startDate": "2022",
+            "endDate": "2024"
         },
         {
-            "school": "<UniversityName>",
-            "location": "<City, State>",
-            "degree": "<DegreeType> in <Major>",
-            "startDate": "<YYYY-MM-DD>",
-            "endDate": "<YYYY-MM-DD>"
+            "school": "SIRT Bhopal",
+            "location": "Bhopal, M.P, India",
+            "degree": "Bachelor of Computer Science",
+            "startDate": "2024",
+            "endDate": "2028"
         }
     ],
     "career": [
         {
-            "company": "<CompanyName1>",
-            "position": "<JobTitle1>",
-            "location": "<City, State or Remote>",
-            "startDate": "<YYYY-MM-DD>",
-            "endDate": "<YYYY-MM-DD or null>"
+            "company": "Telehack",
+            "position": "Admin",
+            "location": "remote",
+            "startDate": "2023-09-21",
+            "endDate": "2024-11-12"
         },
         {
-            "company": "<CompanyName2>",
-            "position": "<JobTitle2>",
-            "location": "<City, State or Remote>",
-            "startDate": "<YYYY-MM-DD>",
-            "endDate": "<YYYY-MM-DD or null>"
+            "company": "FRVR, KRUNKER.IO",
+            "position": "Technical Architect",
+            "location": "remote",
+            "startDate": "2025-03-13",
+            "endDate": "RUNNING"
         }
     ]
 }
