@@ -1,39 +1,53 @@
 {
-  "name": "Your Name",
-  "age": 25,
-  "status": "Student",
+  "name": "Anshul Namdev",
+  "age": 19,
+  "status": "College-Student",
   "skills": [
+    "JAVA",
+    "C/C++",
+    "Typescript",
     "Python",
     "JavaScript",
     "HTML",
     "CSS",
     "Git",
     "React",
-    "Node.js"
+    "Node.js",
+    "Ai Engineer",
+    "Web Developer",
+    "App Developer",
+    "Machine Learning",
+    "Data Science",
+    "Django",
+    "Flask",
+    "SQL",
+    "PSTsql"
   ],
   "social_links": {
-    "github": "https://github.com/yourusername",
-    "linkedin": "https://linkedin.com/in/yourusername",
-    "twitter": "https://twitter.com/yourusername",
-    "portfolio": "https://yourportfolio.com"
+    "github": "https://github.com/Axshul",
+    "linkedin": "https://www.linkedin.com/in/anshul-namdev-b149b5329/",
+    "portfolio": "https://axshul.github.io/Portfolio/"
   },
-  "born": "2000-01-01",
-  "live": "New York, USA",
+  "born": "2006-06-29",
+  "live": "Bhopa (M.P), India",
   "education": {
     "degree": "Bachelor of Computer Science",
-    "university": "NYU",
-    "year": 2022
+    "university": "SIRT Bhopal",
+    "year": "2024-2028"
   },
   "interests": [
     "AI",
     "Robotics",
     "Open Source",
-    "Traveling"
+    "Traveling",
+    "IoT",
+    "Designing",
+    "Programming"
   ],
   "languages": [
     "English",
-    "Spanish"
+    "Hindi"
   ],
-  "wannabe_dream": "To become a world-class software engineer and build impactful technology",
-  "favorite_quote": "Code is like humor. When you have to explain it, it’s bad."
+  "wannabe_dream": "To become a world-class software engineer & build impactful AI solutions for businesses",
+  "favorite_quote": "My Unmatched Perspicacity coupled with sheer indefatigability makes me a feared opponent in any realm of human endeavor."
 }
