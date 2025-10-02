@@ -1,0 +1,36 @@
+{
+    "name": "<YourName>",
+    "dateOfBirth": "<YYYY-MM-DD>",
+    "education": [
+        {
+            "school": "<HighSchoolName>",
+            "location": "<City, State>",
+            "degree": "High School Diploma",
+            "startDate": "<YYYY-MM-DD>",
+            "endDate": "<YYYY-MM-DD>"
+        },
+        {
+            "school": "<UniversityName>",
+            "location": "<City, State>",
+            "degree": "<DegreeType> in <Major>",
+            "startDate": "<YYYY-MM-DD>",
+            "endDate": "<YYYY-MM-DD>"
+        }
+    ],
+    "career": [
+        {
+            "company": "<CompanyName1>",
+            "position": "<JobTitle1>",
+            "location": "<City, State or Remote>",
+            "startDate": "<YYYY-MM-DD>",
+            "endDate": "<YYYY-MM-DD or null>"
+        },
+        {
+            "company": "<CompanyName2>",
+            "position": "<JobTitle2>",
+            "location": "<City, State or Remote>",
+            "startDate": "<YYYY-MM-DD>",
+            "endDate": "<YYYY-MM-DD or null>"
+        }
+    ]
+}

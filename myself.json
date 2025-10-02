@@ -1,21 +1,39 @@
 {
   "name": "Your Name",
-  "username": "your-github-username",
-  "bio": "A brief description about yourself.",
-  "social": {
-    "github": "https://github.com/your-github-username",
-    "linkedin": "https://linkedin.com/in/your-linkedin",
-    "twitter": "https://twitter.com/your-twitter"
-  },
+  "age": 25,
+  "status": "Student",
   "skills": [
+    "Python",
     "JavaScript",
     "HTML",
     "CSS",
+    "Git",
     "React",
     "Node.js"
   ],
-  "contact": {
-    "email": "your.email@example.com",
-    "phone": "+1234567890"
-  }
+  "social_links": {
+    "github": "https://github.com/yourusername",
+    "linkedin": "https://linkedin.com/in/yourusername",
+    "twitter": "https://twitter.com/yourusername",
+    "portfolio": "https://yourportfolio.com"
+  },
+  "born": "2000-01-01",
+  "live": "New York, USA",
+  "education": {
+    "degree": "Bachelor of Computer Science",
+    "university": "NYU",
+    "year": 2022
+  },
+  "interests": [
+    "AI",
+    "Robotics",
+    "Open Source",
+    "Traveling"
+  ],
+  "languages": [
+    "English",
+    "Spanish"
+  ],
+  "wannabe_dream": "To become a world-class software engineer and build impactful technology",
+  "favorite_quote": "Code is like humor. When you have to explain it, it’s bad."
 }
