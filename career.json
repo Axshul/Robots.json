@@ -18,19 +18,23 @@
         }
     ],
     "career": [
-       "Telehack Admin (2023-2024)",{
-            "company": "Telehack",
-            "position": "Admin",
-            "location": "remote",
-            "startDate": "2023-09-21",
-            "endDate": "2024-11-12"
+        {
+            "Telehack Admin (2023-2024)": {
+                "company": "Telehack",
+                "position": "Admin",
+                "location": "remote",
+                "startDate": "2023-09-21",
+                "endDate": "2024-11-12"
+            }
         },
-        "Technical Architect (2025-Present)",{
-            "company": "FRVR, KRUNKER.IO",
-            "position": "Technical Architect",
-            "location": "remote",
-            "startDate": "2025-03-13",
-            "endDate": "RUNNING"
+        {
+            "FRVR, KRUNKER.IO (2025-PRESENT)": {
+                "company": "FRVR, KRUNKER.IO",
+                "position": "Technical Architect",
+                "location": "remote",
+                "startDate": "2025-03-13",
+                "endDate": "RUNNING"
+            }
         }
     ]
 }
