@@ -4,7 +4,7 @@
   "status": "College-Student",
   "skills": [
     "JAVA",
-    "C/C++",
+    "C/C++/C#",
     "Typescript",
     "Python",
     "JavaScript",
@@ -21,7 +21,7 @@
     "Django",
     "Flask",
     "SQL",
-    "PSTsql"
+    "SpringBoot"
   ],
   "social_links": {
     "github": "https://github.com/Axshul",
