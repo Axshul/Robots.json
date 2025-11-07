@@ -1,84 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Axshul Static JSON API</title>
-  <script>
-    /*
-      Axshul Static API — Semi-Dynamic JSON Reader for GitHub Pages
-      --------------------------------------------------------------
-      Usage Examples:
-        ?type=myself
-        ?type=career
-        ?type=myself&path=skills.2
-        ?type=career&path=education.0.school
-    */
-
-    async function run() {
-      const params = new URLSearchParams(window.location.search);
-      const type = params.get('type');
-      const path = params.get('path');
-
-      // Map of JSON sources (add more as your repo grows)
-      const sources = {
-        "career": "./career.json",
-        "myself": "./myself.json"
-      };
-
-      // 1️⃣ — If user is loading the "api.json" entry point, redirect to index.html with same params
-      if (window.location.pathname.endsWith("api.json")) {
-        window.location.href = "index.html" + window.location.search;
-        return;
-      }
-
-      // 2️⃣ — Validate type param
-      if (!type || !sources[type]) {
-        return sendJSON({ error: "Invalid or missing 'type' parameter. Try ?type=myself or ?type=career" });
-      }
-
-      try {
-        // 3️⃣ — Fetch JSON
-        const res = await fetch(sources[type]);
-        const jsonData = await res.json();
-
-        // 4️⃣ — Optional path navigation
-        let result = jsonData;
-        if (path) {
-          const keys = path.split('.');
-          for (const key of keys) {
-            if (result && typeof result === "object") {
-              result = result[key];
-            } else {
-              result = undefined;
-              break;
-            }
-          }
-          if (result === undefined) {
-            result = { error: `Path '${path}' not found in '${type}.json'` };
-          }
-        }
-
-        // 5️⃣ — Output the JSON
-        sendJSON(result);
-      } catch (err) {
-        sendJSON({ error: err.message });
-      }
-    }
-
-    function sendJSON(data) {
-      // Clear everything and show only JSON (works with browsers + Postman)
-      document.open();
-      document.write("<pre>" + JSON.stringify(data, null, 2) + "</pre>");
-      document.close();
-    }
-
-    run();
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Axshul Static API Library</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #0f111a;
+    color: #e2e2e2;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  aside {
+    width: 260px;
+    background: #161821;
+    border-right: 1px solid #262833;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+  aside h1 {
+    font-size: 1.1rem;
+    margin: 0 0 1rem;
+    color: #6cf;
+  }
+  aside ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  aside li {
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  aside li:hover, aside li.active {
+    background: #272b3a;
+  }
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 2rem;
+    overflow: hidden;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  input {
+    flex: 1;
+    padding: 0.5rem 0.8rem;
+    border: none;
+    border-radius: 6px;
+    background: #1c1f2b;
+    color: #fff;
+    outline: none;
+  }
+  button {
+    padding: 0.5rem 0.8rem;
+    background: #6cf;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  pre {
+    background: #1a1d27;
+    border-radius: 6px;
+    padding: 1rem;
+    overflow: auto;
+    flex-grow: 1;
+    font-size: 0.9rem;
+    line-height: 1.4rem;
+  }
+  .link-bar {
+    margin: 0.5rem 0 1rem;
+    background: #161821;
+    padding: 0.6rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .link-bar a {
+    color: #6cf;
+    text-decoration: none;
+  }
+</style>
 </head>
 <body>
-  <noscript>
-    This page requires JavaScript. Please enable it to use the Axshul Static API.
-  </noscript>
+  <aside>
+    <h1>📂 Data Files</h1>
+    <ul id="fileList"></ul>
+  </aside>
+
+  <main>
+    <div class="header">
+      <input id="pathInput" type="text" placeholder="Enter path (e.g. education.0.school)">
+      <button id="fetchBtn">Fetch</button>
+    </div>
+    <div class="link-bar" id="linkBar"></div>
+    <pre id="output">Select a file from the sidebar to view its data...</pre>
+  </main>
+
+<script>
+  const files = ["myself.json", "career.json"]; // add more JSON filenames here
+  const repoBase = "https://axshul.github.io/Robots.json/";
+
+  const fileList = document.getElementById("fileList");
+  const output = document.getElementById("output");
+  const fetchBtn = document.getElementById("fetchBtn");
+  const pathInput = document.getElementById("pathInput");
+  const linkBar = document.getElementById("linkBar");
+
+  let currentFile = null;
+  renderFileList();
+
+  function renderFileList() {
+    files.forEach(file => {
+      const li = document.createElement("li");
+      li.textContent = file;
+      li.onclick = () => loadFile(file, li);
+      fileList.appendChild(li);
+    });
+  }
+
+  async function loadFile(file, element) {
+    document.querySelectorAll("aside li").forEach(li => li.classList.remove("active"));
+    element.classList.add("active");
+    currentFile = file;
+    const res = await fetch(`${repoBase}${file}`);
+    const data = await res.json();
+    showJSON(data);
+    pathInput.value = "";
+    updateLink();
+  }
+
+  fetchBtn.onclick = async () => {
+    if (!currentFile) return alert("Select a file first!");
+    const path = pathInput.value.trim();
+    const res = await fetch(`${repoBase}${currentFile}`);
+    const data = await res.json();
+    let result = data;
+    if (path) {
+      for (const key of path.split('.')) result = result?.[key];
+      if (result === undefined)
+        result = { error: `Path '${path}' not found in ${currentFile}` };
+    }
+    showJSON(result);
+    updateLink(path);
+  };
+
+  function showJSON(data) {
+    output.textContent = JSON.stringify(data, null, 2);
+  }
+
+  function updateLink(path = "") {
+    if (!currentFile) return linkBar.textContent = "";
+    const baseURL = `${repoBase}index.html?type=${currentFile.replace(".json", "")}`;
+    const fullURL = path ? `${baseURL}&path=${path}` : baseURL;
+    linkBar.innerHTML = `🔗 <a href="${fullURL}" target="_blank">${fullURL}</a>`;
+  }
+</script>
 </body>
 </html>
