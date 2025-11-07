@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Axshul JSON API</title>
+  <script>
+    async function run() {
+      const params = new URLSearchParams(window.location.search);
+      const type = params.get('type');
+      const path = params.get('path'); // optional parameter
+
+      const sources = {
+        "career": "./career.json",
+        "myself": "./myself.json",
+        // add more JSON files here as you expand
+      };
+
+      if (!type || !sources[type]) {
+        return document.write(JSON.stringify({ error: "Invalid or missing 'type' parameter." }, null, 2));
+      }
+
+      try {
+        const res = await fetch(sources[type]);
+        const jsonData = await res.json();
+
+        let result = jsonData;
+
+        if (path) {
+          const keys = path.split('.');
+          for (const key of keys) {
+            // handle array indexes and nested objects safely
+            if (result && typeof result === "object") {
+              result = result[key];
+            } else {
+              result = undefined;
+              break;
+            }
+          }
+
+          if (result === undefined) {
+            result = { error: `Path '${path}' not found in '${type}.json'` };
+          }
+        }
+
+        document.write(JSON.stringify(result, null, 2));
+      } catch (e) {
+        document.write(JSON.stringify({ error: e.message }, null, 2));
+      }
+    }
+
+    run();
+  </script>
+</head>
+<body></body>
+</html>
