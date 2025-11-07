@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Axshul Static JSON API</title>
+  <script>
+    /*
+      Axshul Static API — Semi-Dynamic JSON Reader for GitHub Pages
+      --------------------------------------------------------------
+      Usage Examples:
+        ?type=myself
+        ?type=career
+        ?type=myself&path=skills.2
+        ?type=career&path=education.0.school
+    */
+
+    async function run() {
+      const params = new URLSearchParams(window.location.search);
+      const type = params.get('type');
+      const path = params.get('path');
+
+      // Map of JSON sources (add more as your repo grows)
+      const sources = {
+        "career": "./career.json",
+        "myself": "./myself.json"
+      };
+
+      // 1️⃣ — If user is loading the "api.json" entry point, redirect to index.html with same params
+      if (window.location.pathname.endsWith("api.json")) {
+        window.location.href = "index.html" + window.location.search;
+        return;
+      }
+
+      // 2️⃣ — Validate type param
+      if (!type || !sources[type]) {
+        return sendJSON({ error: "Invalid or missing 'type' parameter. Try ?type=myself or ?type=career" });
+      }
+
+      try {
+        // 3️⃣ — Fetch JSON
+        const res = await fetch(sources[type]);
+        const jsonData = await res.json();
+
+        // 4️⃣ — Optional path navigation
+        let result = jsonData;
+        if (path) {
+          const keys = path.split('.');
+          for (const key of keys) {
+            if (result && typeof result === "object") {
+              result = result[key];
+            } else {
+              result = undefined;
+              break;
+            }
+          }
+          if (result === undefined) {
+            result = { error: `Path '${path}' not found in '${type}.json'` };
+          }
+        }
+
+        // 5️⃣ — Output the JSON
+        sendJSON(result);
+      } catch (err) {
+        sendJSON({ error: err.message });
+      }
+    }
+
+    function sendJSON(data) {
+      // Clear everything and show only JSON (works with browsers + Postman)
+      document.open();
+      document.write("<pre>" + JSON.stringify(data, null, 2) + "</pre>");
+      document.close();
+    }
+
+    run();
+  </script>
+</head>
+<body>
+  <noscript>
+    This page requires JavaScript. Please enable it to use the Axshul Static API.
+  </noscript>
+</body>
+</html>

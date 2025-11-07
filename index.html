@@ -168,7 +168,7 @@
 
   function updateLink(path = "") {
     if (!currentFile) return linkBar.textContent = "";
-    const baseURL = `${repoBase}index.html?type=${currentFile.replace(".json", "")}`;
+    const baseURL = `${repoBase}API.html?type=${currentFile.replace(".json", "")}`;
     const fullURL = path ? `${baseURL}&path=${path}` : baseURL;
     linkBar.innerHTML = `🔗 <a href="${fullURL}" target="_blank">${fullURL}</a>`;
   }
