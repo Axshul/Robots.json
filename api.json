@@ -1,0 +1,4 @@
+<script>
+  // Redirect any call to api.json → index.html (with same query params)
+  window.location.href = "index.html" + window.location.search;
+</script>
